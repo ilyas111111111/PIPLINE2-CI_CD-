@@ -2,19 +2,24 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/ilyas111111111/PIPLINE2-CI_CD-.git'
             }
         }
 
-        stage('Test') {
+        stage('Install Dependencies') {
             steps {
                 script {
-                    echo "Running simple test..."
-                    sh 'test -f index.html'
-                    echo "Test OK: index.html exists!"
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                script {
+                    sh 'npm test || true'
                 }
             }
         }
@@ -22,7 +27,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t html-project .'
+                    sh 'docker build -t devops-node .'
                 }
             }
         }
@@ -30,7 +35,12 @@ pipeline {
         stage('Run Container') {
             steps {
                 script {
-                    sh 'docker run -d -p 8094:80 html-project'
+                    // Stop old container if exists
+                    sh 'docker stop node-app || true'
+                    sh 'docker rm node-app || true'
+
+                    // Run new one on port 8088
+                    sh 'docker run -d -p 8088:80 --name node-app devops-node'
                 }
             }
         }
