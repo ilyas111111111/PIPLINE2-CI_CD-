@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/ilyas111111111/Devops-projet.git'
+                git branch: 'main', url: 'https://github.com/ilyas111111111/PIPLINE2-CI_CD-.git'
             }
         }
 
