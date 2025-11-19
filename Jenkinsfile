@@ -13,8 +13,8 @@ pipeline {
             steps {
                 script {
                     echo "Running simple test..."
-                    sh 'test -f index.html'
-                    echo "Test OK: index.html exists!"
+                    sh 'test -f app.js'
+                    echo "Test OK: app.js exists!"
                 }
             }
         }
