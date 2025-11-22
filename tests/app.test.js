@@ -5,7 +5,7 @@ describe('Basic Tests', () => {
 
     test('Home returns text', async () => {
         const res = await request(app).get('/');
-        expect(res.text).toBe('Server is running! 👍');
+        expect(res.text).toBe('Server is running!');
     });
 
     test('Sum API works', async () => {
